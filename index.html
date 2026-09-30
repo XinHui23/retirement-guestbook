@@ -125,87 +125,98 @@
 
 <body>
 
-  <div class="guestbook">
+<div class="guestbook">
 
-    <h1>💛 Leave a little love</h1>
+  <h1>💛 Leave a little love</h1>
 
-    <div class="subtitle">
-      Leave a reaction or a little message to celebrate this special journey.
-    </div>
+  <div class="subtitle">
+    Leave a reaction or a little message to celebrate this special journey.
+  </div>
 
-    <div class="reactions">
+  <div class="reactions">
 
-      <button class="reaction" onclick="addReaction('👏')">
-        👏
-        <span class="count" id="count-👏">0</span>
-      </button>
-
-      <button class="reaction" onclick="addReaction('❤️')">
-        ❤️
-        <span class="count" id="count-❤️">0</span>
-      </button>
-
-      <button class="reaction" onclick="addReaction('🎉')">
-        🎉
-        <span class="count" id="count-🎉">0</span>
-      </button>
-
-      <button class="reaction" onclick="addReaction('🍻')">
-        🍻
-        <span class="count" id="count-🍻">0</span>
-      </button>
-
-      <button class="reaction" onclick="addReaction('🥹')">
-        🥹
-        <span class="count" id="count-🥹">0</span>
-      </button>
-
-    </div>
-
-    <textarea
-      id="messageInput"
-      placeholder="Leave a message..."
-      maxlength="500"
-    ></textarea>
-
-    <br>
-
-    <button class="send" onclick="sendMessage()">
-      Send 💛
+    <button class="reaction" onclick="addReaction('👏')">
+      👏
+      <span class="count" id="count-👏">0</span>
     </button>
 
-    <div class="status" id="status"></div>
+    <button class="reaction" onclick="addReaction('❤️')">
+      ❤️
+      <span class="count" id="count-❤️">0</span>
+    </button>
 
-    <div class="messages">
-      <h3>💌 Messages from Hoppies</h3>
-      <div id="messageList">
-        <div class="empty">Loading messages...</div>
-      </div>
-    </div>
+    <button class="reaction" onclick="addReaction('🎉')">
+      🎉
+      <span class="count" id="count-🎉">0</span>
+    </button>
+
+    <button class="reaction" onclick="addReaction('🍻')">
+      🍻
+      <span class="count" id="count-🍻">0</span>
+    </button>
+
+    <button class="reaction" onclick="addReaction('🥹')">
+      🥹
+      <span class="count" id="count-🥹">0</span>
+    </button>
 
   </div>
+
+  <textarea
+    id="messageInput"
+    placeholder="Leave a message..."
+    maxlength="500"
+  ></textarea>
+
+  <br>
+
+  <button class="send" onclick="sendMessage()">
+    Send 💛
+  </button>
+
+  <div class="status" id="status"></div>
+
+  <div class="messages">
+    <h3>💌 Messages from Hoppies</h3>
+
+    <div id="messageList">
+      <div class="empty">Loading messages...</div>
+    </div>
+  </div>
+
+</div>
 
 
 <script>
 
   // ==========================================
-  // SUPABASE CONNECTION
+  // SUPABASE
   // ==========================================
 
-  const SUPABASE_URL = "https://slxexovrytedtpzfsprh.supabase.co";
+  const SUPABASE_URL =
+    "https://slxexovrytedtpzfsprh.supabase.co";
 
-  const SUPABASE_KEY = "sb_publishable_5lvNTaDOBqjUdYO34Rzqbg_ZXgKd2gE";
-
-
-  // ==========================================
-  // MONTHLY GUESTBOOK ID
-  // ==========================================
-
-  const GUESTBOOK_ID = "2026-10";
+  const SUPABASE_KEY =
+    "sb_publishable_5lvNTaDOBqjUdYO34Rzqbg_ZXgKd2gE";
 
 
   // ==========================================
-  // HELPER
+  // READ GUESTBOOK ID FROM THE LINK
+  // ==========================================
+
+  const urlParams = new URLSearchParams(window.location.search);
+
+  let GUESTBOOK_ID = urlParams.get("id");
+
+
+  // If no ID is provided, use a default test ID
+  if (!GUESTBOOK_ID) {
+    GUESTBOOK_ID = "test";
+  }
+
+
+  // ==========================================
+  // HEADERS
   // ==========================================
 
   const headers = {
@@ -216,7 +227,7 @@
 
 
   // ==========================================
-  // LOAD THIS MONTH'S GUESTBOOK
+  // LOAD GUESTBOOK
   // ==========================================
 
   async function loadGuestbook() {
@@ -225,7 +236,8 @@
 
       const response = await fetch(
         SUPABASE_URL +
-        "/rest/v1/guestbook?select=*&guestbook_id=eq." +
+        "/rest/v1/guestbook?select=*" +
+        "&guestbook_id=eq." +
         encodeURIComponent(GUESTBOOK_ID) +
         "&order=created_at.asc",
         {
@@ -234,15 +246,19 @@
         }
       );
 
+
       if (!response.ok) {
         throw new Error("Unable to load guestbook");
       }
 
+
       const data = await response.json();
+
 
       updateReactionCounts(data);
 
       displayMessages(data);
+
 
     } catch (error) {
 
@@ -270,23 +286,32 @@
       "🥹": 0
     };
 
+
     data.forEach(function(row) {
 
       if (
         row.type === "reaction" &&
         reactions.hasOwnProperty(row.content)
       ) {
+
         reactions[row.content]++;
+
       }
 
     });
 
+
     Object.keys(reactions).forEach(function(emoji) {
 
-      const element = document.getElementById("count-" + emoji);
+      const element =
+        document.getElementById("count-" + emoji);
+
 
       if (element) {
-        element.textContent = reactions[emoji];
+
+        element.textContent =
+          reactions[emoji];
+
       }
 
     });
@@ -305,6 +330,7 @@
       document.getElementById("status").textContent =
         "Adding reaction...";
 
+
       const response = await fetch(
         SUPABASE_URL + "/rest/v1/guestbook",
         {
@@ -316,20 +342,30 @@
           },
 
           body: JSON.stringify({
+
             type: "reaction",
+
             content: emoji,
+
             guestbook_id: GUESTBOOK_ID
+
           })
+
         }
       );
 
+
       if (!response.ok) {
+
         throw new Error("Reaction failed");
+
       }
+
 
       document.getElementById("status").textContent = "";
 
       loadGuestbook();
+
 
     } catch (error) {
 
@@ -349,9 +385,13 @@
 
   async function sendMessage() {
 
-    const input = document.getElementById("messageInput");
+    const input =
+      document.getElementById("messageInput");
 
-    const message = input.value.trim();
+
+    const message =
+      input.value.trim();
+
 
     if (!message) {
 
@@ -380,20 +420,28 @@
           },
 
           body: JSON.stringify({
+
             type: "message",
+
             content: message,
+
             guestbook_id: GUESTBOOK_ID
+
           })
+
         }
       );
 
 
       if (!response.ok) {
+
         throw new Error("Message failed");
+
       }
 
 
       input.value = "";
+
 
       document.getElementById("status").textContent =
         "Message added 💛";
@@ -420,17 +468,24 @@
 
   function displayMessages(data) {
 
-    const container = document.getElementById("messageList");
+    const container =
+      document.getElementById("messageList");
 
-    const messages = data.filter(function(row) {
-      return row.type === "message";
-    });
+
+    const messages =
+      data.filter(function(row) {
+
+        return row.type === "message";
+
+      });
 
 
     if (messages.length === 0) {
 
       container.innerHTML =
-        '<div class="empty">Be the first to leave a little love 💛</div>';
+        '<div class="empty">' +
+        'Be the first to leave a little love 💛' +
+        '</div>';
 
       return;
 
@@ -442,11 +497,16 @@
 
     messages.forEach(function(row) {
 
-      const messageDiv = document.createElement("div");
+      const messageDiv =
+        document.createElement("div");
+
 
       messageDiv.className = "message";
 
-      messageDiv.textContent = row.content;
+
+      messageDiv.textContent =
+        row.content;
+
 
       container.appendChild(messageDiv);
 
