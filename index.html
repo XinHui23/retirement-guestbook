@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: transparent;
+  color: #333;
+}
+
+.guestbook {
+  max-width: 650px;
+  margin: auto;
+  padding: 25px;
+  background: white;
+  border-radius: 18px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.10);
+  text-align: center;
+}
+
+h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.subtitle {
+  color: #777;
+  margin-bottom: 22px;
+}
+
+.reactions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 25px;
+}
+
+.reaction {
+  background: #f8f8f8;
+  border: 1px solid #ddd;
+  border-radius: 14px;
+  padding: 10px 14px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.reaction:hover {
+  transform: scale(1.05);
+}
+
+.count {
+  font-size: 13px;
+  color: #777;
+}
+
+textarea {
+  width: 100%;
+  min-height: 80px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  resize: vertical;
+}
+
+.send {
+  margin-top: 10px;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 10px;
+  background: #174d35;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.messages {
+  margin-top: 25px;
+  text-align: left;
+}
+
+.message {
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="guestbook">
+
+<h1>💛 Leave a little love</h1>
+
+<div class="subtitle">
+Tap an emoji to leave your wishes
+</div>
+
+<div class="reactions">
+
+<button class="reaction" onclick="react('👏')">
+👏 <span id="clap" class="count">0</span>
+</button>
+
+<button class="reaction" onclick="react('❤️')">
+❤️ <span id="heart" class="count">0</span>
+</button>
+
+<button class="reaction" onclick="react('🎉')">
+🎉 <span id="party" class="count">0</span>
+</button>
+
+<button class="reaction" onclick="react('🍻')">
+🍻 <span id="beer" class="count">0</span>
+</button>
+
+<button class="reaction" onclick="react('🥹')">
+🥹 <span id="touched" class="count">0</span>
+</button>
+
+</div>
+
+<h3>Leave a message</h3>
+
+<textarea id="message"
+placeholder="Write your message here..."></textarea>
+
+<br>
+
+<button class="send" onclick="sendMessage()">
+Send
+</button>
+
+<div class="messages" id="messages"></div>
+
+</div>
+
+<script>
+
+let reactions = {
+  "👏": 0,
+  "❤️": 0,
+  "🎉": 0,
+  "🍻": 0,
+  "🥹": 0
+};
+
+let messages = [];
+
+function react(emoji) {
+
+  reactions[emoji]++;
+
+  document.getElementById("clap").innerText = reactions["👏"];
+  document.getElementById("heart").innerText = reactions["❤️"];
+  document.getElementById("party").innerText = reactions["🎉"];
+  document.getElementById("beer").innerText = reactions["🍻"];
+  document.getElementById("touched").innerText = reactions["🥹"];
+
+}
+
+function sendMessage() {
+
+  const box = document.getElementById("message");
+
+  const text = box.value.trim();
+
+  if (text === "") {
+    return;
+  }
+
+  messages.push(text);
+
+  box.value = "";
+
+  displayMessages();
+
+}
+
+function displayMessages() {
+
+  const area = document.getElementById("messages");
+
+  area.innerHTML = "";
+
+  messages.slice().reverse().forEach(function(message) {
+
+    const div = document.createElement("div");
+
+    div.className = "message";
+
+    div.innerHTML = "💬 " + message;
+
+    area.appendChild(div);
+
+  });
+
+}
+
+</script>
+
+</body>
+</html>
