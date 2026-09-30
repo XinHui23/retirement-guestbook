@@ -95,6 +95,10 @@
       text-align: left;
     }
 
+    .messages h3 {
+      text-align: center;
+    }
+
     .message {
       padding: 14px;
       margin-bottom: 10px;
@@ -194,6 +198,13 @@
 
 
   // ==========================================
+  // MONTHLY GUESTBOOK ID
+  // ==========================================
+
+  const GUESTBOOK_ID = "2026-10";
+
+
+  // ==========================================
   // HELPER
   // ==========================================
 
@@ -205,7 +216,7 @@
 
 
   // ==========================================
-  // LOAD EVERYTHING
+  // LOAD THIS MONTH'S GUESTBOOK
   // ==========================================
 
   async function loadGuestbook() {
@@ -214,7 +225,9 @@
 
       const response = await fetch(
         SUPABASE_URL +
-        "/rest/v1/guestbook?select=*&order=created_at.asc",
+        "/rest/v1/guestbook?select=*&guestbook_id=eq." +
+        encodeURIComponent(GUESTBOOK_ID) +
+        "&order=created_at.asc",
         {
           method: "GET",
           headers: headers
@@ -259,7 +272,10 @@
 
     data.forEach(function(row) {
 
-      if (row.type === "reaction" && reactions.hasOwnProperty(row.content)) {
+      if (
+        row.type === "reaction" &&
+        reactions.hasOwnProperty(row.content)
+      ) {
         reactions[row.content]++;
       }
 
@@ -293,13 +309,16 @@
         SUPABASE_URL + "/rest/v1/guestbook",
         {
           method: "POST",
+
           headers: {
             ...headers,
             "Prefer": "return=minimal"
           },
+
           body: JSON.stringify({
             type: "reaction",
-            content: emoji
+            content: emoji,
+            guestbook_id: GUESTBOOK_ID
           })
         }
       );
@@ -354,13 +373,16 @@
         SUPABASE_URL + "/rest/v1/guestbook",
         {
           method: "POST",
+
           headers: {
             ...headers,
             "Prefer": "return=minimal"
           },
+
           body: JSON.stringify({
             type: "message",
-            content: message
+            content: message,
+            guestbook_id: GUESTBOOK_ID
           })
         }
       );
