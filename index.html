@@ -1,527 +1,778 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Leave a Little Love</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<meta charset="UTF-8">
 
-    body {
-      margin: 0;
-      padding: 30px 20px;
-      font-family: Arial, sans-serif;
-      background: #ffffff;
-      color: #333333;
-    }
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
-    .guestbook {
-      max-width: 700px;
-      margin: 0 auto;
-      text-align: center;
-    }
+<title>Leave a little love</title>
 
-    h1 {
-      margin: 0 0 8px;
-      font-size: 30px;
-    }
+<style>
 
-    .subtitle {
-      margin-bottom: 25px;
-      color: #666;
-      font-size: 15px;
-    }
+body {
 
-    .reactions {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 30px;
-    }
+  margin: 0;
 
-    .reaction {
-      border: 1px solid #ddd;
-      background: white;
-      border-radius: 14px;
-      padding: 10px 14px;
-      cursor: pointer;
-      font-size: 25px;
-      transition: transform 0.15s;
-    }
+  padding: 24px;
 
-    .reaction:hover {
-      transform: scale(1.08);
-    }
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
 
-    .count {
-      display: block;
-      font-size: 13px;
-      margin-top: 4px;
-      color: #666;
-    }
+  background: #ffffff;
 
-    textarea {
-      width: 100%;
-      min-height: 100px;
-      padding: 14px;
-      border: 1px solid #ddd;
-      border-radius: 12px;
-      resize: vertical;
-      font-family: Arial, sans-serif;
-      font-size: 15px;
-    }
+  color: #333;
 
-    .send {
-      margin-top: 10px;
-      padding: 11px 25px;
-      border: none;
-      border-radius: 20px;
-      background: #222;
-      color: white;
-      cursor: pointer;
-      font-size: 15px;
-    }
+  text-align: center;
 
-    .send:hover {
-      opacity: 0.85;
-    }
+}
 
-    .messages {
-      margin-top: 30px;
-      text-align: left;
-    }
+.container {
 
-    .messages h3 {
-      text-align: center;
-    }
+  max-width: 600px;
 
-    .message {
-      padding: 14px;
-      margin-bottom: 10px;
-      background: #f7f7f7;
-      border-radius: 10px;
-      line-height: 1.5;
-      word-wrap: break-word;
-    }
+  margin: auto;
 
-    .empty {
-      text-align: center;
-      color: #999;
-      font-size: 14px;
-    }
+}
 
-    .status {
-      margin-top: 10px;
-      font-size: 13px;
-      color: #777;
-      min-height: 18px;
-    }
-  </style>
+h1 {
+
+  margin-bottom: 8px;
+
+  font-size: 28px;
+
+}
+
+.subtitle {
+
+  margin-bottom: 24px;
+
+  color: #666;
+
+  font-size: 15px;
+
+}
+
+.reactions {
+
+  display: flex;
+
+  justify-content: center;
+
+  gap: 12px;
+
+  flex-wrap: wrap;
+
+  margin-bottom: 10px;
+
+}
+
+.reaction {
+
+  border: none;
+
+  background: #f5f5f5;
+
+  border-radius: 16px;
+
+  padding: 14px 16px;
+
+  font-size: 28px;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+
+}
+
+.reaction:hover {
+
+  transform: scale(1.08);
+
+}
+
+.reaction:disabled {
+
+  transform: none;
+
+}
+
+.count {
+
+  display: block;
+
+  font-size: 13px;
+
+  color: #777;
+
+  margin-top: 4px;
+
+}
+
+textarea {
+
+  width: 100%;
+
+  box-sizing: border-box;
+
+  min-height: 90px;
+
+  padding: 12px;
+
+  margin-top: 20px;
+
+  border: 1px solid #ddd;
+
+  border-radius: 12px;
+
+  font-family: inherit;
+
+  font-size: 15px;
+
+  resize: vertical;
+
+}
+
+.send {
+
+  margin-top: 10px;
+
+  padding: 12px 24px;
+
+  border: none;
+
+  border-radius: 20px;
+
+  background: #333;
+
+  color: white;
+
+  font-size: 15px;
+
+  cursor: pointer;
+
+}
+
+.send:hover {
+
+  opacity: 0.85;
+
+}
+
+#status {
+
+  min-height: 20px;
+
+  margin-top: 12px;
+
+  font-size: 13px;
+
+  color: #777;
+
+}
+
+.messages-title {
+
+  margin-top: 30px;
+
+  margin-bottom: 12px;
+
+  font-size: 20px;
+
+}
+
+.message {
+
+  background: #f8f8f8;
+
+  padding: 12px 14px;
+
+  margin: 8px 0;
+
+  border-radius: 12px;
+
+  text-align: left;
+
+  word-wrap: break-word;
+
+}
+
+</style>
+
 </head>
+
 
 <body>
 
-<div class="guestbook">
+<div class="container">
 
   <h1>💛 Leave a little love</h1>
 
   <div class="subtitle">
-     Leave a little love, a message, or a reaction.
+    Leave a little love, a message, or a reaction.
   </div>
+
 
   <div class="reactions">
 
-    <button class="reaction" onclick="addReaction('👏')">
-      👏
-      <span class="count" id="count-👏">0</span>
-    </button>
+    <div>
+      <button
+        class="reaction"
+        onclick="addReaction('👏')"
+      >
+        👏
+      </button>
 
-    <button class="reaction" onclick="addReaction('❤️')">
-      ❤️
-      <span class="count" id="count-❤️">0</span>
-    </button>
+      <span
+        class="count"
+        id="count-👏"
+      >
+        0
+      </span>
+    </div>
 
-    <button class="reaction" onclick="addReaction('🎉')">
-      🎉
-      <span class="count" id="count-🎉">0</span>
-    </button>
 
-    <button class="reaction" onclick="addReaction('🍻')">
-      🍻
-      <span class="count" id="count-🍻">0</span>
-    </button>
+    <div>
+      <button
+        class="reaction"
+        onclick="addReaction('❤️')"
+      >
+        ❤️
+      </button>
 
-    <button class="reaction" onclick="addReaction('🥹')">
-      🥹
-      <span class="count" id="count-🥹">0</span>
-    </button>
+      <span
+        class="count"
+        id="count-❤️"
+      >
+        0
+      </span>
+    </div>
+
+
+    <div>
+      <button
+        class="reaction"
+        onclick="addReaction('🎉')"
+      >
+        🎉
+      </button>
+
+      <span
+        class="count"
+        id="count-🎉"
+      >
+        0
+      </span>
+    </div>
+
+
+    <div>
+      <button
+        class="reaction"
+        onclick="addReaction('🍻')"
+      >
+        🍻
+      </button>
+
+      <span
+        class="count"
+        id="count-🍻"
+      >
+        0
+      </span>
+    </div>
+
+
+    <div>
+      <button
+        class="reaction"
+        onclick="addReaction('🥹')"
+      >
+        🥹
+      </button>
+
+      <span
+        class="count"
+        id="count-🥹"
+      >
+        0
+      </span>
+    </div>
 
   </div>
 
+
   <textarea
-    id="messageInput"
+    id="message"
     placeholder="Leave a message..."
-    maxlength="500"
   ></textarea>
 
-  <br>
 
-  <button class="send" onclick="sendMessage()">
+  <button
+    class="send"
+    onclick="sendMessage()"
+  >
     Send 💛
   </button>
 
-  <div class="status" id="status"></div>
 
-  <div class="messages">
-    <h3>💌 Messages from Hoppies</h3>
+  <div id="status"></div>
 
-    <div id="messageList">
-      <div class="empty">Loading messages...</div>
-    </div>
+
+  <div class="messages-title">
+    💌 Messages from Hoppies
   </div>
+
+
+  <div id="messages"></div>
 
 </div>
 
 
 <script>
 
-  // ==========================================
-  // SUPABASE
-  // ==========================================
 
-  const SUPABASE_URL =
-    "https://slxexovrytedtpzfsprh.supabase.co";
+// ==========================================
+// SUPABASE SETTINGS
+// ==========================================
 
-  const SUPABASE_KEY =
-    "sb_publishable_5lvNTaDOBqjUdYO34Rzqbg_ZXgKd2gE";
+const SUPABASE_URL =
+  "https://slxexovrytedtpzfsprh.supabase.co";
 
 
-  // ==========================================
-  // READ GUESTBOOK ID FROM THE LINK
-  // ==========================================
-
-  const urlParams = new URLSearchParams(window.location.search);
-
-  let GUESTBOOK_ID = urlParams.get("id");
+const SUPABASE_KEY =
+  "sb_publishable_5lvNTaDOBqjUdYO34Rzqbg_ZXgKd2gE";
 
 
-  // If no ID is provided, use a default test ID
-  if (!GUESTBOOK_ID) {
-    GUESTBOOK_ID = "test";
-  }
+// ==========================================
+// GUESTBOOK ID
+// ==========================================
+
+const urlParams =
+  new URLSearchParams(window.location.search);
 
 
-  // ==========================================
-  // HEADERS
-  // ==========================================
-
-  const headers = {
-    "apikey": SUPABASE_KEY,
-    "Authorization": "Bearer " + SUPABASE_KEY,
-    "Content-Type": "application/json"
-  };
+let GUESTBOOK_ID =
+  urlParams.get("id");
 
 
-  // ==========================================
-  // LOAD GUESTBOOK
-  // ==========================================
+if (!GUESTBOOK_ID) {
 
-  async function loadGuestbook() {
+  GUESTBOOK_ID = "test";
 
-    try {
-
-      const response = await fetch(
-        SUPABASE_URL +
-        "/rest/v1/guestbook?select=*" +
-        "&guestbook_id=eq." +
-        encodeURIComponent(GUESTBOOK_ID) +
-        "&order=created_at.asc",
-        {
-          method: "GET",
-          headers: headers
-        }
-      );
+}
 
 
-      if (!response.ok) {
-        throw new Error("Unable to load guestbook");
+// ==========================================
+// SUPABASE HEADERS
+// ==========================================
+
+const headers = {
+
+  "apikey": SUPABASE_KEY,
+
+  "Authorization":
+    "Bearer " + SUPABASE_KEY,
+
+  "Content-Type":
+    "application/json"
+
+};
+
+
+// ==========================================
+// LOAD GUESTBOOK
+// ==========================================
+
+async function loadGuestbook() {
+
+  try {
+
+    const response = await fetch(
+
+      SUPABASE_URL +
+      "/rest/v1/guestbook" +
+      "?guestbook_id=eq." +
+      encodeURIComponent(GUESTBOOK_ID) +
+      "&order=created_at.asc",
+
+      {
+
+        method: "GET",
+
+        headers: headers
+
       }
 
-
-      const data = await response.json();
-
-
-      updateReactionCounts(data);
-
-      displayMessages(data);
+    );
 
 
-    } catch (error) {
+    if (!response.ok) {
 
-      console.error(error);
-
-      document.getElementById("status").textContent =
-        "Unable to load the guestbook.";
+      throw new Error(
+        "Could not load guestbook"
+      );
 
     }
 
-  }
+
+    const data =
+      await response.json();
 
 
-  // ==========================================
-  // REACTION COUNTS
-  // ==========================================
+    // Reset reaction counts
 
-  function updateReactionCounts(data) {
-
-    const reactions = {
-      "👏": 0,
-      "❤️": 0,
-      "🎉": 0,
-      "🍻": 0,
-      "🥹": 0
-    };
+    const emojis = [
+      "👏",
+      "❤️",
+      "🎉",
+      "🍻",
+      "🥹"
+    ];
 
 
-    data.forEach(function(row) {
+    emojis.forEach(function(emoji) {
 
-      if (
-        row.type === "reaction" &&
-        reactions.hasOwnProperty(row.content)
-      ) {
+      const count =
+        data.filter(function(item) {
 
-        reactions[row.content]++;
+          return (
+            item.type === "reaction" &&
+            item.content === emoji
+          );
 
-      }
+        }).length;
+
+
+      document.getElementById(
+        "count-" + emoji
+      ).textContent = count;
 
     });
 
 
-    Object.keys(reactions).forEach(function(emoji) {
-
-      const element =
-        document.getElementById("count-" + emoji);
-
-
-      if (element) {
-
-        element.textContent =
-          reactions[emoji];
-
-      }
-
-    });
-
-  }
-
-
-  // ==========================================
-  // ADD REACTION
-  // ==========================================
-
-  async function addReaction(emoji) {
-
-    try {
-
-      document.getElementById("status").textContent =
-        "Adding reaction...";
-
-
-      const response = await fetch(
-        SUPABASE_URL + "/rest/v1/guestbook",
-        {
-          method: "POST",
-
-          headers: {
-            ...headers,
-            "Prefer": "return=minimal"
-          },
-
-          body: JSON.stringify({
-
-            type: "reaction",
-
-            content: emoji,
-
-            guestbook_id: GUESTBOOK_ID
-
-          })
-
-        }
-      );
-
-
-      if (!response.ok) {
-
-        throw new Error("Reaction failed");
-
-      }
-
-
-      document.getElementById("status").textContent = "";
-
-      loadGuestbook();
-
-
-    } catch (error) {
-
-      console.error(error);
-
-      document.getElementById("status").textContent =
-        "Something went wrong. Please try again.";
-
-    }
-
-  }
-
-
-  // ==========================================
-  // SEND MESSAGE
-  // ==========================================
-
-  async function sendMessage() {
-
-    const input =
-      document.getElementById("messageInput");
-
-
-    const message =
-      input.value.trim();
-
-
-    if (!message) {
-
-      document.getElementById("status").textContent =
-        "Please write a message first.";
-
-      return;
-
-    }
-
-
-    try {
-
-      document.getElementById("status").textContent =
-        "Sending...";
-
-
-      const response = await fetch(
-        SUPABASE_URL + "/rest/v1/guestbook",
-        {
-          method: "POST",
-
-          headers: {
-            ...headers,
-            "Prefer": "return=minimal"
-          },
-
-          body: JSON.stringify({
-
-            type: "message",
-
-            content: message,
-
-            guestbook_id: GUESTBOOK_ID
-
-          })
-
-        }
-      );
-
-
-      if (!response.ok) {
-
-        throw new Error("Message failed");
-
-      }
-
-
-      input.value = "";
-
-
-      document.getElementById("status").textContent =
-        "Message added 💛";
-
-
-      loadGuestbook();
-
-
-    } catch (error) {
-
-      console.error(error);
-
-      document.getElementById("status").textContent =
-        "Something went wrong. Please try again.";
-
-    }
-
-  }
-
-
-  // ==========================================
-  // DISPLAY MESSAGES
-  // ==========================================
-
-  function displayMessages(data) {
-
-    const container =
-      document.getElementById("messageList");
-
+    // Show messages
 
     const messages =
-      data.filter(function(row) {
+      data.filter(function(item) {
 
-        return row.type === "message";
+        return item.type === "message";
 
       });
 
 
-    if (messages.length === 0) {
-
-      container.innerHTML =
-        '<div class="empty">' +
-        'Be the first to leave a little love 💛' +
-        '</div>';
-
-      return;
-
-    }
+    const messagesContainer =
+      document.getElementById("messages");
 
 
-    container.innerHTML = "";
+    messagesContainer.innerHTML = "";
 
 
-    messages.forEach(function(row) {
+    messages.forEach(function(item) {
 
-      const messageDiv =
+      const message =
         document.createElement("div");
 
 
-      messageDiv.className = "message";
+      message.className = "message";
 
 
-      messageDiv.textContent =
-        row.content;
+      message.textContent =
+        item.content;
 
 
-      container.appendChild(messageDiv);
+      messagesContainer.appendChild(
+        message
+      );
 
     });
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    document.getElementById(
+      "status"
+    ).textContent =
+      "Unable to load guestbook.";
+
+  }
+
+}
+
+
+// ==========================================
+// ADD REACTION
+// ==========================================
+
+async function addReaction(emoji) {
+
+  const reactionKey =
+    "reaction_" + GUESTBOOK_ID;
+
+
+  // Check whether this browser
+  // has already reacted
+
+  if (
+    localStorage.getItem(reactionKey)
+  ) {
+
+    document.getElementById(
+      "status"
+    ).textContent =
+      "You've already left a reaction 💛";
+
+    return;
 
   }
 
 
-  // ==========================================
-  // START
-  // ==========================================
+  try {
 
-  loadGuestbook();
+    document.getElementById(
+      "status"
+    ).textContent =
+      "Adding reaction...";
+
+
+    const response = await fetch(
+
+      SUPABASE_URL +
+      "/rest/v1/guestbook",
+
+      {
+
+        method: "POST",
+
+        headers: {
+
+          ...headers,
+
+          "Prefer":
+            "return=minimal"
+
+        },
+
+        body: JSON.stringify({
+
+          type: "reaction",
+
+          content: emoji,
+
+          guestbook_id:
+            GUESTBOOK_ID
+
+        })
+
+      }
+
+    );
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        "Reaction failed"
+      );
+
+    }
+
+
+    // Remember this browser's reaction
+
+    localStorage.setItem(
+      reactionKey,
+      emoji
+    );
+
+
+    document.getElementById(
+      "status"
+    ).textContent =
+      "Thanks for the love! 💛";
+
+
+    disableReactionButtons();
+
+
+    loadGuestbook();
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    document.getElementById(
+      "status"
+    ).textContent =
+      "Something went wrong. Please try again.";
+
+  }
+
+}
+
+
+// ==========================================
+// SEND MESSAGE
+// ==========================================
+
+async function sendMessage() {
+
+  const messageInput =
+    document.getElementById("message");
+
+
+  const message =
+    messageInput.value.trim();
+
+
+  if (!message) {
+
+    document.getElementById(
+      "status"
+    ).textContent =
+      "Please write a message first.";
+
+    return;
+
+  }
+
+
+  try {
+
+    document.getElementById(
+      "status"
+    ).textContent =
+      "Sending...";
+
+
+    const response = await fetch(
+
+      SUPABASE_URL +
+      "/rest/v1/guestbook",
+
+      {
+
+        method: "POST",
+
+        headers: {
+
+          ...headers,
+
+          "Prefer":
+            "return=minimal"
+
+        },
+
+        body: JSON.stringify({
+
+          type: "message",
+
+          content: message,
+
+          guestbook_id:
+            GUESTBOOK_ID
+
+        })
+
+      }
+
+    );
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        "Message failed"
+      );
+
+    }
+
+
+    messageInput.value = "";
+
+
+    document.getElementById(
+      "status"
+    ).textContent =
+      "Message sent 💛";
+
+
+    loadGuestbook();
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    document.getElementById(
+      "status"
+    ).textContent =
+      "Something went wrong. Please try again.";
+
+  }
+
+}
+
+
+// ==========================================
+// DISABLE REACTION BUTTONS
+// ==========================================
+
+function disableReactionButtons() {
+
+  const buttons =
+    document.querySelectorAll(
+      ".reaction"
+    );
+
+
+  buttons.forEach(function(button) {
+
+    button.disabled = true;
+
+    button.style.opacity = "0.5";
+
+    button.style.cursor = "default";
+
+  });
+
+}
+
+
+// ==========================================
+// CHECK EXISTING REACTION
+// ==========================================
+
+const existingReaction =
+  localStorage.getItem(
+    "reaction_" + GUESTBOOK_ID
+  );
+
+
+if (existingReaction) {
+
+  disableReactionButtons();
+
+}
+
+
+// ==========================================
+// START
+// ==========================================
+
+loadGuestbook();
 
 </script>
 
 </body>
+
 </html>
