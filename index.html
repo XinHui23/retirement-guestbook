@@ -1,209 +1,443 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leave a Little Love</title>
 
-<style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: transparent;
-  color: #333;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-.guestbook {
-  max-width: 650px;
-  margin: auto;
-  padding: 25px;
-  background: white;
-  border-radius: 18px;
-  box-shadow: 0 4px 18px rgba(0,0,0,0.10);
-  text-align: center;
-}
+    body {
+      margin: 0;
+      padding: 30px 20px;
+      font-family: Arial, sans-serif;
+      background: #ffffff;
+      color: #333333;
+    }
 
-h1 {
-  margin: 0;
-  font-size: 28px;
-}
+    .guestbook {
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+    }
 
-.subtitle {
-  color: #777;
-  margin-bottom: 22px;
-}
+    h1 {
+      margin: 0 0 8px;
+      font-size: 30px;
+    }
 
-.reactions {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-bottom: 25px;
-}
+    .subtitle {
+      margin-bottom: 25px;
+      color: #666;
+      font-size: 15px;
+    }
 
-.reaction {
-  background: #f8f8f8;
-  border: 1px solid #ddd;
-  border-radius: 14px;
-  padding: 10px 14px;
-  font-size: 24px;
-  cursor: pointer;
-}
+    .reactions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
 
-.reaction:hover {
-  transform: scale(1.05);
-}
+    .reaction {
+      border: 1px solid #ddd;
+      background: white;
+      border-radius: 14px;
+      padding: 10px 14px;
+      cursor: pointer;
+      font-size: 25px;
+      transition: transform 0.15s;
+    }
 
-.count {
-  font-size: 13px;
-  color: #777;
-}
+    .reaction:hover {
+      transform: scale(1.08);
+    }
 
-textarea {
-  width: 100%;
-  min-height: 80px;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-  font-size: 15px;
-  resize: vertical;
-}
+    .count {
+      display: block;
+      font-size: 13px;
+      margin-top: 4px;
+      color: #666;
+    }
 
-.send {
-  margin-top: 10px;
-  padding: 10px 25px;
-  border: none;
-  border-radius: 10px;
-  background: #174d35;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-}
+    textarea {
+      width: 100%;
+      min-height: 100px;
+      padding: 14px;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      resize: vertical;
+      font-family: Arial, sans-serif;
+      font-size: 15px;
+    }
 
-.messages {
-  margin-top: 25px;
-  text-align: left;
-}
+    .send {
+      margin-top: 10px;
+      padding: 11px 25px;
+      border: none;
+      border-radius: 20px;
+      background: #222;
+      color: white;
+      cursor: pointer;
+      font-size: 15px;
+    }
 
-.message {
-  padding: 12px 0;
-  border-bottom: 1px solid #eee;
-}
+    .send:hover {
+      opacity: 0.85;
+    }
 
-</style>
+    .messages {
+      margin-top: 30px;
+      text-align: left;
+    }
+
+    .message {
+      padding: 14px;
+      margin-bottom: 10px;
+      background: #f7f7f7;
+      border-radius: 10px;
+      line-height: 1.5;
+      word-wrap: break-word;
+    }
+
+    .empty {
+      text-align: center;
+      color: #999;
+      font-size: 14px;
+    }
+
+    .status {
+      margin-top: 10px;
+      font-size: 13px;
+      color: #777;
+      min-height: 18px;
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="guestbook">
+  <div class="guestbook">
 
-<h1>💛 Leave a little love</h1>
+    <h1>💛 Leave a little love</h1>
 
-<div class="subtitle">
-Tap an emoji to leave your wishes
-</div>
+    <div class="subtitle">
+      Leave a reaction or a little message to celebrate this special journey.
+    </div>
 
-<div class="reactions">
+    <div class="reactions">
 
-<button class="reaction" onclick="react('👏')">
-👏 <span id="clap" class="count">0</span>
-</button>
+      <button class="reaction" onclick="addReaction('👏')">
+        👏
+        <span class="count" id="count-👏">0</span>
+      </button>
 
-<button class="reaction" onclick="react('❤️')">
-❤️ <span id="heart" class="count">0</span>
-</button>
+      <button class="reaction" onclick="addReaction('❤️')">
+        ❤️
+        <span class="count" id="count-❤️">0</span>
+      </button>
 
-<button class="reaction" onclick="react('🎉')">
-🎉 <span id="party" class="count">0</span>
-</button>
+      <button class="reaction" onclick="addReaction('🎉')">
+        🎉
+        <span class="count" id="count-🎉">0</span>
+      </button>
 
-<button class="reaction" onclick="react('🍻')">
-🍻 <span id="beer" class="count">0</span>
-</button>
+      <button class="reaction" onclick="addReaction('🍻')">
+        🍻
+        <span class="count" id="count-🍻">0</span>
+      </button>
 
-<button class="reaction" onclick="react('🥹')">
-🥹 <span id="touched" class="count">0</span>
-</button>
+      <button class="reaction" onclick="addReaction('🥹')">
+        🥹
+        <span class="count" id="count-🥹">0</span>
+      </button>
 
-</div>
+    </div>
 
-<h3>Leave a message</h3>
+    <textarea
+      id="messageInput"
+      placeholder="Leave a message..."
+      maxlength="500"
+    ></textarea>
 
-<textarea id="message"
-placeholder="Write your message here..."></textarea>
+    <br>
 
-<br>
+    <button class="send" onclick="sendMessage()">
+      Send 💛
+    </button>
 
-<button class="send" onclick="sendMessage()">
-Send
-</button>
+    <div class="status" id="status"></div>
 
-<div class="messages" id="messages"></div>
+    <div class="messages">
+      <h3>💌 Messages from Hoppies</h3>
+      <div id="messageList">
+        <div class="empty">Loading messages...</div>
+      </div>
+    </div>
 
-</div>
+  </div>
+
 
 <script>
 
-let reactions = {
-  "👏": 0,
-  "❤️": 0,
-  "🎉": 0,
-  "🍻": 0,
-  "🥹": 0
-};
+  // ==========================================
+  // SUPABASE CONNECTION
+  // ==========================================
 
-let messages = [];
+  const SUPABASE_URL = "https://slxexovrytedtpzfsprh.supabase.co";
 
-function react(emoji) {
+  const SUPABASE_KEY = "sb_publishable_5lvNTaDOBqjUdYO34Rzqbg_ZXgKd2gE";
 
-  reactions[emoji]++;
 
-  document.getElementById("clap").innerText = reactions["👏"];
-  document.getElementById("heart").innerText = reactions["❤️"];
-  document.getElementById("party").innerText = reactions["🎉"];
-  document.getElementById("beer").innerText = reactions["🍻"];
-  document.getElementById("touched").innerText = reactions["🥹"];
+  // ==========================================
+  // HELPER
+  // ==========================================
 
-}
+  const headers = {
+    "apikey": SUPABASE_KEY,
+    "Authorization": "Bearer " + SUPABASE_KEY,
+    "Content-Type": "application/json"
+  };
 
-function sendMessage() {
 
-  const box = document.getElementById("message");
+  // ==========================================
+  // LOAD EVERYTHING
+  // ==========================================
 
-  const text = box.value.trim();
+  async function loadGuestbook() {
 
-  if (text === "") {
-    return;
+    try {
+
+      const response = await fetch(
+        SUPABASE_URL +
+        "/rest/v1/guestbook?select=*&order=created_at.asc",
+        {
+          method: "GET",
+          headers: headers
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Unable to load guestbook");
+      }
+
+      const data = await response.json();
+
+      updateReactionCounts(data);
+
+      displayMessages(data);
+
+    } catch (error) {
+
+      console.error(error);
+
+      document.getElementById("status").textContent =
+        "Unable to load the guestbook.";
+
+    }
+
   }
 
-  messages.push(text);
 
-  box.value = "";
+  // ==========================================
+  // REACTION COUNTS
+  // ==========================================
 
-  displayMessages();
+  function updateReactionCounts(data) {
 
-}
+    const reactions = {
+      "👏": 0,
+      "❤️": 0,
+      "🎉": 0,
+      "🍻": 0,
+      "🥹": 0
+    };
 
-function displayMessages() {
+    data.forEach(function(row) {
 
-  const area = document.getElementById("messages");
+      if (row.type === "reaction" && reactions.hasOwnProperty(row.content)) {
+        reactions[row.content]++;
+      }
 
-  area.innerHTML = "";
+    });
 
-  messages.slice().reverse().forEach(function(message) {
+    Object.keys(reactions).forEach(function(emoji) {
 
-    const div = document.createElement("div");
+      const element = document.getElementById("count-" + emoji);
 
-    div.className = "message";
+      if (element) {
+        element.textContent = reactions[emoji];
+      }
 
-    div.innerHTML = "💬 " + message;
+    });
 
-    area.appendChild(div);
+  }
 
-  });
 
-}
+  // ==========================================
+  // ADD REACTION
+  // ==========================================
+
+  async function addReaction(emoji) {
+
+    try {
+
+      document.getElementById("status").textContent =
+        "Adding reaction...";
+
+      const response = await fetch(
+        SUPABASE_URL + "/rest/v1/guestbook",
+        {
+          method: "POST",
+          headers: {
+            ...headers,
+            "Prefer": "return=minimal"
+          },
+          body: JSON.stringify({
+            type: "reaction",
+            content: emoji
+          })
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Reaction failed");
+      }
+
+      document.getElementById("status").textContent = "";
+
+      loadGuestbook();
+
+    } catch (error) {
+
+      console.error(error);
+
+      document.getElementById("status").textContent =
+        "Something went wrong. Please try again.";
+
+    }
+
+  }
+
+
+  // ==========================================
+  // SEND MESSAGE
+  // ==========================================
+
+  async function sendMessage() {
+
+    const input = document.getElementById("messageInput");
+
+    const message = input.value.trim();
+
+    if (!message) {
+
+      document.getElementById("status").textContent =
+        "Please write a message first.";
+
+      return;
+
+    }
+
+
+    try {
+
+      document.getElementById("status").textContent =
+        "Sending...";
+
+
+      const response = await fetch(
+        SUPABASE_URL + "/rest/v1/guestbook",
+        {
+          method: "POST",
+          headers: {
+            ...headers,
+            "Prefer": "return=minimal"
+          },
+          body: JSON.stringify({
+            type: "message",
+            content: message
+          })
+        }
+      );
+
+
+      if (!response.ok) {
+        throw new Error("Message failed");
+      }
+
+
+      input.value = "";
+
+      document.getElementById("status").textContent =
+        "Message added 💛";
+
+
+      loadGuestbook();
+
+
+    } catch (error) {
+
+      console.error(error);
+
+      document.getElementById("status").textContent =
+        "Something went wrong. Please try again.";
+
+    }
+
+  }
+
+
+  // ==========================================
+  // DISPLAY MESSAGES
+  // ==========================================
+
+  function displayMessages(data) {
+
+    const container = document.getElementById("messageList");
+
+    const messages = data.filter(function(row) {
+      return row.type === "message";
+    });
+
+
+    if (messages.length === 0) {
+
+      container.innerHTML =
+        '<div class="empty">Be the first to leave a little love 💛</div>';
+
+      return;
+
+    }
+
+
+    container.innerHTML = "";
+
+
+    messages.forEach(function(row) {
+
+      const messageDiv = document.createElement("div");
+
+      messageDiv.className = "message";
+
+      messageDiv.textContent = row.content;
+
+      container.appendChild(messageDiv);
+
+    });
+
+  }
+
+
+  // ==========================================
+  // START
+  // ==========================================
+
+  loadGuestbook();
 
 </script>
 
