@@ -19,43 +19,52 @@ body {
 
   padding: 0;
 
+  width: 100%;
+
+  height: 100%;
+
   background: transparent;
 
   overflow: hidden;
 
-  font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 
 }
 
 
-/* =================================
-   WELCOME BUTTON
-   ================================= */
+/* ============================
+   SMALL WELCOME BUTTON
+   ============================ */
 
 .welcome-button {
 
+  position: absolute;
+
+  right: 8px;
+
+  bottom: 8px;
+
   border: none;
 
-  background: #ffffff;
+  background: white;
 
-  border-radius: 30px;
+  border-radius: 20px;
 
-  padding: 10px 18px;
+  padding: 5px 10px;
 
-  font-size: 15px;
+  font-size: 11px;
 
   font-weight: bold;
 
   color: #333;
 
   box-shadow:
-    0 4px 12px
+    0 2px 7px
     rgba(0,0,0,0.15);
 
   cursor: pointer;
+
+  white-space: nowrap;
 
   transition: 0.2s;
 
@@ -69,39 +78,24 @@ body {
 }
 
 
-/* =================================
-   MESSAGE
-   ================================= */
-
-.message {
-
-  margin-top: 8px;
-
-  font-size: 14px;
-
-  font-weight: bold;
-
-  color: #333;
-
-}
-
-
-/* =================================
+/* ============================
    FLOATING EMOJIS
-   ================================= */
+   ============================ */
 
 .celebration {
 
-  position: fixed;
+  position: absolute;
 
-  bottom: 0;
+  right: 20px;
 
-  font-size: 28px;
+  bottom: 25px;
+
+  font-size: 20px;
 
   pointer-events: none;
 
   animation:
-    floatUp 2.5s ease-out forwards;
+    floatUp 2s ease-out forwards;
 
 }
 
@@ -111,19 +105,21 @@ body {
   0% {
 
     transform:
-      translateY(0)
+      translate(0, 0)
       scale(0.7);
 
     opacity: 1;
 
   }
 
-
   100% {
 
     transform:
-      translateY(-180px)
-      scale(1.2);
+      translate(
+        calc(-60px + 120px * var(--random-x)),
+        -130px
+      )
+      scale(1.1);
 
     opacity: 0;
 
@@ -149,22 +145,10 @@ body {
 </button>
 
 
-<div
-  id="message"
-  class="message"
-></div>
-
-
 <script>
 
 
 function welcome() {
-
-
-  document.getElementById(
-    "message"
-  ).textContent =
-    "Welcome to the team! 💛";
 
 
   const emojis = [
@@ -180,15 +164,13 @@ function welcome() {
 
   for (
     let i = 0;
-    i < 12;
+    i < 10;
     i++
   ) {
 
 
     const emoji =
-      document.createElement(
-        "div"
-      );
+      document.createElement("div");
 
 
     emoji.className =
@@ -204,14 +186,10 @@ function welcome() {
       ];
 
 
-    emoji.style.left =
-      (10 + Math.random() * 80)
-      + "%";
-
-
-    emoji.style.animationDelay =
-      (Math.random() * 0.5)
-      + "s";
+    emoji.style.setProperty(
+      "--random-x",
+      Math.random()
+    );
 
 
     document.body.appendChild(
@@ -223,7 +201,7 @@ function welcome() {
 
       emoji.remove();
 
-    }, 3000);
+    }, 2200);
 
   }
 
