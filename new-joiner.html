@@ -10,96 +10,50 @@
   content="width=device-width, initial-scale=1.0"
 >
 
-<title>Welcome to Carlsberg</title>
-
 <style>
 
-* {
-  box-sizing: border-box;
-}
-
+html,
 body {
 
   margin: 0;
 
-  min-height: 100vh;
+  padding: 0;
+
+  background: transparent;
+
+  overflow: hidden;
 
   font-family:
     Arial,
     Helvetica,
     sans-serif;
 
-  background:
-    linear-gradient(
-      135deg,
-      #fff8e8,
-      #ffffff,
-      #fff1c9
-    );
-
-  color: #333;
-
-  overflow-x: hidden;
-
 }
 
-.container {
 
-  max-width: 700px;
+/* =================================
+   WELCOME BUTTON
+   ================================= */
 
-  margin: auto;
-
-  padding: 40px 24px 60px;
-
-  text-align: center;
-
-}
-
-.welcome {
-
-  font-size: 16px;
-
-  letter-spacing: 2px;
-
-  margin-bottom: 10px;
-
-  color: #777;
-
-}
-
-h1 {
-
-  font-size: 42px;
-
-  margin: 0 0 14px;
-
-}
-
-.subtitle {
-
-  font-size: 18px;
-
-  line-height: 1.5;
-
-  color: #666;
-
-  margin-bottom: 35px;
-
-}
-
-.celebrate {
+.welcome-button {
 
   border: none;
 
+  background: #ffffff;
+
   border-radius: 30px;
 
-  padding: 15px 28px;
+  padding: 10px 18px;
 
-  font-size: 17px;
+  font-size: 15px;
 
-  background: #333;
+  font-weight: bold;
 
-  color: white;
+  color: #333;
+
+  box-shadow:
+    0 4px 12px
+    rgba(0,0,0,0.15);
 
   cursor: pointer;
 
@@ -107,98 +61,50 @@ h1 {
 
 }
 
-.celebrate:hover {
+
+.welcome-button:hover {
 
   transform: scale(1.05);
 
 }
 
-.card {
 
-  background: white;
+/* =================================
+   MESSAGE
+   ================================= */
 
-  border-radius: 20px;
+.message {
 
-  padding: 25px;
+  margin-top: 8px;
 
-  margin-top: 30px;
+  font-size: 14px;
 
-  box-shadow:
-    0 8px 25px
-    rgba(0,0,0,0.08);
+  font-weight: bold;
 
-}
-
-.card h2 {
-
-  margin-top: 0;
+  color: #333;
 
 }
 
-.vibes {
 
-  display: flex;
+/* =================================
+   FLOATING EMOJIS
+   ================================= */
 
-  justify-content: center;
-
-  gap: 12px;
-
-  flex-wrap: wrap;
-
-  margin-top: 20px;
-
-}
-
-.vibe {
-
-  border: none;
-
-  background: #f5f5f5;
-
-  border-radius: 16px;
-
-  padding: 15px 18px;
-
-  font-size: 28px;
-
-  cursor: pointer;
-
-  transition: 0.2s;
-
-}
-
-.vibe:hover {
-
-  transform: scale(1.12);
-
-}
-
-#message {
-
-  margin-top: 18px;
-
-  min-height: 30px;
-
-  font-size: 15px;
-
-  color: #666;
-
-}
-
-.balloon {
+.celebration {
 
   position: fixed;
 
-  bottom: -100px;
+  bottom: 0;
 
-  font-size: 45px;
-
-  animation:
-    floatUp 4s linear forwards;
+  font-size: 28px;
 
   pointer-events: none;
 
+  animation:
+    floatUp 2.5s ease-out forwards;
+
 }
+
 
 @keyframes floatUp {
 
@@ -206,56 +112,18 @@ h1 {
 
     transform:
       translateY(0)
-      rotate(0deg);
+      scale(0.7);
 
     opacity: 1;
 
   }
 
-  100% {
-
-    transform:
-      translateY(-120vh)
-      rotate(20deg);
-
-    opacity: 0;
-
-  }
-
-}
-
-.confetti {
-
-  position: fixed;
-
-  top: -20px;
-
-  font-size: 25px;
-
-  animation:
-    fall 3s linear forwards;
-
-  pointer-events: none;
-
-}
-
-@keyframes fall {
-
-  0% {
-
-    transform:
-      translateY(0)
-      rotate(0deg);
-
-    opacity: 1;
-
-  }
 
   100% {
 
     transform:
-      translateY(110vh)
-      rotate(360deg);
+      translateY(-180px)
+      scale(1.2);
 
     opacity: 0;
 
@@ -271,221 +139,91 @@ h1 {
 <body>
 
 
-<div class="container">
+<button
+  class="welcome-button"
+  onclick="welcome()"
+>
 
-  <div class="welcome">
-    A BIG HELLO TO OUR NEW HOPPIE
-  </div>
+  🎉 Welcome!
 
-
-  <h1>
-    👋 Welcome to Carlsberg!
-  </h1>
+</button>
 
 
-  <div class="subtitle">
-
-    A new journey begins here.
-    <br>
-
-    We're happy to have you with us! 💛
-
-  </div>
-
-
-  <button
-    class="celebrate"
-    onclick="celebrate()"
-  >
-
-    🎉 Let's Celebrate!
-
-  </button>
-
-
-  <div class="card">
-
-    <h2>
-      🌟 Send a little welcome
-    </h2>
-
-
-    <div>
-
-      How would you welcome
-      our new Hoppie?
-
-    </div>
-
-
-    <div class="vibes">
-
-      <button
-        class="vibe"
-        onclick="chooseVibe('👋')"
-      >
-        👋
-      </button>
-
-
-      <button
-        class="vibe"
-        onclick="chooseVibe('💛')"
-      >
-        💛
-      </button>
-
-
-      <button
-        class="vibe"
-        onclick="chooseVibe('🎉')"
-      >
-        🎉
-      </button>
-
-
-      <button
-        class="vibe"
-        onclick="chooseVibe('🍻')"
-      >
-        🍻
-      </button>
-
-
-      <button
-        class="vibe"
-        onclick="chooseVibe('🚀')"
-      >
-        🚀
-      </button>
-
-    </div>
-
-
-    <div id="message"></div>
-
-  </div>
-
-
-</div>
+<div
+  id="message"
+  class="message"
+></div>
 
 
 <script>
 
 
-function chooseVibe(emoji) {
+function welcome() {
+
 
   document.getElementById(
     "message"
   ).textContent =
-    "Welcome from a fellow Hoppie! " +
-    emoji;
-
-}
+    "Welcome to the team! 💛";
 
 
-function celebrate() {
+  const emojis = [
 
-  // Create balloons
-
-  const balloons = [
     "🎈",
-    "🎈",
-    "🎈",
-    "🎈",
-    "🎈"
-  ];
-
-
-  balloons.forEach(function(balloon) {
-
-    const element =
-      document.createElement("div");
-
-
-    element.className =
-      "balloon";
-
-
-    element.textContent =
-      balloon;
-
-
-    element.style.left =
-      Math.random() * 100 + "%";
-
-
-    element.style.animationDuration =
-      (3 + Math.random() * 2) + "s";
-
-
-    document.body.appendChild(
-      element
-    );
-
-
-    setTimeout(function() {
-
-      element.remove();
-
-    }, 5000);
-
-  });
-
-
-  // Create confetti
-
-  const confetti = [
     "🎉",
     "✨",
     "💛",
-    "🎊",
-    "⭐",
     "🥳"
+
   ];
 
 
   for (
     let i = 0;
-    i < 25;
+    i < 12;
     i++
   ) {
 
-    const element =
-      document.createElement("div");
+
+    const emoji =
+      document.createElement(
+        "div"
+      );
 
 
-    element.className =
-      "confetti";
+    emoji.className =
+      "celebration";
 
 
-    element.textContent =
-      confetti[
+    emoji.textContent =
+      emojis[
         Math.floor(
           Math.random() *
-          confetti.length
+          emojis.length
         )
       ];
 
 
-    element.style.left =
-      Math.random() * 100 + "%";
+    emoji.style.left =
+      (10 + Math.random() * 80)
+      + "%";
 
 
-    element.style.animationDuration =
-      (2 + Math.random() * 2) + "s";
+    emoji.style.animationDelay =
+      (Math.random() * 0.5)
+      + "s";
 
 
     document.body.appendChild(
-      element
+      emoji
     );
 
 
     setTimeout(function() {
 
-      element.remove();
+      emoji.remove();
 
-    }, 4500);
+    }, 3000);
 
   }
 
