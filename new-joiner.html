@@ -32,17 +32,17 @@ body {
 }
 
 
-/* ============================
+/* =================================
    SMALL WELCOME BUTTON
-   ============================ */
+   ================================= */
 
 .welcome-button {
 
   position: absolute;
 
-  right: 8px;
+  right: 18px;
 
-  bottom: 8px;
+  bottom: 18px;
 
   border: none;
 
@@ -50,7 +50,7 @@ body {
 
   border-radius: 20px;
 
-  padding: 5px 10px;
+  padding: 6px 11px;
 
   font-size: 11px;
 
@@ -59,12 +59,14 @@ body {
   color: #333;
 
   box-shadow:
-    0 2px 7px
+    0 2px 8px
     rgba(0,0,0,0.15);
 
   cursor: pointer;
 
   white-space: nowrap;
+
+  z-index: 1000;
 
   transition: 0.2s;
 
@@ -78,24 +80,24 @@ body {
 }
 
 
-/* ============================
-   FLOATING EMOJIS
-   ============================ */
+/* =================================
+   CELEBRATION EMOJIS
+   ================================= */
 
 .celebration {
 
   position: absolute;
 
-  right: 20px;
+  bottom: -40px;
 
-  bottom: 25px;
-
-  font-size: 20px;
+  font-size: 26px;
 
   pointer-events: none;
 
+  z-index: 900;
+
   animation:
-    floatUp 2s ease-out forwards;
+    floatUp 3s ease-out forwards;
 
 }
 
@@ -105,21 +107,28 @@ body {
   0% {
 
     transform:
-      translate(0, 0)
+      translateY(0)
+      rotate(0deg)
       scale(0.7);
 
     opacity: 1;
 
   }
 
+
+  50% {
+
+    opacity: 1;
+
+  }
+
+
   100% {
 
     transform:
-      translate(
-        calc(-60px + 120px * var(--random-x)),
-        -130px
-      )
-      scale(1.1);
+      translateY(-110vh)
+      rotate(360deg)
+      scale(1.15);
 
     opacity: 0;
 
@@ -157,14 +166,15 @@ function welcome() {
     "🎉",
     "✨",
     "💛",
-    "🥳"
+    "🥳",
+    "🎊"
 
   ];
 
 
   for (
     let i = 0;
-    i < 10;
+    i < 20;
     i++
   ) {
 
@@ -186,10 +196,24 @@ function welcome() {
       ];
 
 
-    emoji.style.setProperty(
-      "--random-x",
-      Math.random()
-    );
+    // Spread emojis across
+    // the whole page
+
+    emoji.style.left =
+      Math.random() * 100 + "%";
+
+
+    // Slightly different
+    // starting positions
+
+    emoji.style.bottom =
+      (-20 + Math.random() * 30) + "px";
+
+
+    // Different animation speeds
+
+    emoji.style.animationDuration =
+      (2.5 + Math.random() * 2) + "s";
 
 
     document.body.appendChild(
@@ -201,7 +225,7 @@ function welcome() {
 
       emoji.remove();
 
-    }, 2200);
+    }, 5000);
 
   }
 
